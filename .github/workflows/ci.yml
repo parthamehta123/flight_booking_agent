@@ -2,12 +2,14 @@ name: CI
 
 on:
   push:
-    branches: ["main"]
   pull_request:
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    env:
+      AUTH_TOKEN: super-secret-token
 
     steps:
       - name: Checkout
@@ -18,40 +20,47 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install Python dependencies
+      - name: Install deps
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install -r requirements-dev.txt
 
-      - name: Run unit + integration tests
-        run: make test
+      # -----------------------------
+      # Start docker services first
+      # -----------------------------
+      - name: Build and run docker compose
+        run: docker compose up -d --build
 
-      # ----------------------------
-      # Docker Compose E2E phase
-      # ----------------------------
-
-      - name: Build and start Docker services
+      # -----------------------------
+      # Wait for app to become healthy
+      # -----------------------------
+      - name: Wait for /health
         run: |
-          docker compose up -d --build
-
-      - name: Wait for API to be ready
-        run: |
-          echo "Waiting for API..."
+          echo "Waiting for app to be healthy..."
           for i in {1..30}; do
             if curl -sf http://localhost:8000/health > /dev/null; then
-              echo "API is ready"
+              echo "App is healthy!"
               exit 0
             fi
             sleep 2
           done
-          echo "API failed to start"
+
+          echo "App did not become healthy in time"
           docker compose logs
           exit 1
 
-      - name: Smoke test /health
-        run: curl --fail http://localhost:8000/health
+      # -----------------------------
+      # Run tests (now app is alive)
+      # -----------------------------
+      - name: Run unit + integration + e2e tests
+        env:
+          AUTH_TOKEN: super-secret-token
+        run: make test
 
+      # -----------------------------
+      # Smoke tests (extra safety)
+      # -----------------------------
       - name: Smoke test /chat
         run: |
           curl --fail -X POST http://localhost:8000/chat \
@@ -59,6 +68,9 @@ jobs:
             -H "Content-Type: application/json" \
             -d '{"user_id":"ci","message":"book flight from sfo to jfk tomorrow"}'
 
-      - name: Tear down containers
+      # -----------------------------
+      # Always clean up
+      # -----------------------------
+      - name: Tear down
         if: always()
         run: docker compose down -v
