@@ -1,0 +1,5 @@
+services:
+  api:
+    environment:
+      API_TOKEN: ${API_TOKEN}
+      LOG_LEVEL: info

@@ -1,0 +1,5 @@
+services:
+  api:
+    environment:
+      API_TOKEN: dev-token
+      LOG_LEVEL: debug

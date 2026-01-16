@@ -1,14 +1,14 @@
 from app.agent.nodes.planner import planner
 from app.agent.nodes.executor import executor
 from app.agent.nodes.verifier import verifier
-from app.db.repository import BookingRepository
+from app.db.factory import get_repository
 from app.memory.vector_store import VectorMemory
 
 
 class AgentGraph:
     def __init__(self):
         self.sessions = {}
-        self.repo = BookingRepository()
+        self.repo = get_repository()
         self.memory = VectorMemory()
 
     async def invoke(self, user_id: str, text: str):
@@ -26,7 +26,7 @@ class AgentGraph:
             self.sessions.pop(user_id, None)
             booking = result["booking"]
 
-            self.repo.save(booking)
+            await self.repo.save(booking)
             self.memory.store(
                 user_id, f"{booking.flight.origin}->{booking.flight.destination}"
             )
