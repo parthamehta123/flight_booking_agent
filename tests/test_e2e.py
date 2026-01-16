@@ -1,5 +1,13 @@
 import requests
 
+"""
+NOTE:
+Requires the API server to be running:
+    make run
+or
+    docker compose up
+"""
+
 
 def test_real_booking():
     res = requests.post(

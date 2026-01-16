@@ -7,7 +7,7 @@ async def search_flights(origin: str, destination: str, date: str, passengers: i
     await asyncio.sleep(0.1)
     return [
         Flight(
-            flight_id=f"FL{random.randint(1000,9999)}",
+            flight_id=f"FL{random.randint(1000, 9999)}",
             airline=random.choice(["Delta", "United", "JetBlue"]),
             price=random.randint(120, 450),
             origin=origin,

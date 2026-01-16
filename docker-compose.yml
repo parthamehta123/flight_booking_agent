@@ -1,24 +1,38 @@
-version: "3.9"
-
 services:
   db:
     image: postgres:15
+    container_name: flight-db
     environment:
       POSTGRES_USER: agent
       POSTGRES_PASSWORD: agent
       POSTGRES_DB: flight_agent
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agent -d flight_agent"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
 
-  api:
+  app:
     build: .
-    command: uvicorn app.api.main:app --host 0.0.0.0 --port 8000
-    volumes:
-      - .:/app
+    container_name: flight-app
+    depends_on:
+      db:
+        condition: service_healthy
     environment:
-      USE_POSTGRES: "true"
       DATABASE_URL: postgresql+asyncpg://agent:agent@db:5432/flight_agent
     ports:
       - "8000:8000"
-    depends_on:
-      - db
+    command: >
+      sh -c "
+      alembic upgrade head || true &&
+      uvicorn app.api.main:app --host 0.0.0.0 --port 8000
+      "
+    volumes:
+      - .:/app
+
+volumes:
+  postgres_data:

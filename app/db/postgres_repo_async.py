@@ -8,8 +8,13 @@ from app.db.repository import BookingRepository
 
 DATABASE_URL = settings.database_url or "sqlite+aiosqlite:///./dev.db"
 
-engine = create_async_engine(DATABASE_URL, echo=False)
+engine = create_async_engine(DATABASE_URL)
 SessionLocal = async_sessionmaker(engine, expire_on_commit=False)
+
+
+async def get_session():
+    async with SessionLocal() as session:
+        yield session
 
 
 class BookingORM(Base):

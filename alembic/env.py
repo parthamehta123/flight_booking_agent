@@ -9,7 +9,6 @@ sys.path.append(os.path.abspath(os.getcwd()))
 
 from app.config.settings import settings
 from app.db.base import Base
-from app.db.postgres_repo_async import BookingORM
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

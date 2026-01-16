@@ -10,7 +10,7 @@ async def book_flight(flight: Flight, passengers: int):
     await asyncio.sleep(0.05)
 
     booking = Booking(
-        booking_id=f"CONF{random.randint(100000,999999)}",
+        booking_id=f"CONF{random.randint(100000, 999999)}",
         flight=flight,
         passengers=passengers,
     )
