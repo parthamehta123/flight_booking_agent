@@ -5,3 +5,4 @@ pydantic-settings
 chromadb
 langgraph
 dateparser
+pytest
