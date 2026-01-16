@@ -2,7 +2,7 @@
 
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-async-green)
-![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![License](https://img.shields.io/badge/license-none-lightgrey)
 
 A **production-style, fully working agent backend** demonstrating how to design, implement, and run a real agentic system using clean architecture principles.
 
