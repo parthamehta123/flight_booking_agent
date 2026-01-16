@@ -4,3 +4,4 @@ httpx
 python-dotenv
 testcontainers[postgresql]
 ruff
+aiosqlite
