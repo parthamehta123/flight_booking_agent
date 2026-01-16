@@ -10,10 +10,10 @@ A **production-style, fully working agent backend** demonstrating how to design,
 
 This project is intentionally built to be:
 
--   Cloneable\
--   Runnable locally\
--   Easy to understand\
--   Architecturally honest\
+-   Cloneable
+-   Runnable locally
+-   Easy to understand
+-   Architecturally honest
 -   Portfolio-grade
 
 No fake folders. No placeholders. Everything runs.
@@ -228,19 +228,19 @@ behavior - End-to-end tests against live server
 
 ## 🤖 Why this stands out from typical projects
 
-Most agent demos: - Hardcoded flows\
-- No validation\
-- No state\
-- No tests\
+Most agent demos: - Hardcoded flows
+- No validation
+- No state
+- No tests
 - No architecture
 
-This project includes: - Real conversational flow\
-- Input validation\
-- Stateful agent behavior\
-- Modular design\
-- Separation of concerns\
-- Test coverage\
-- Dockerization\
+This project includes: - Real conversational flow
+- Input validation
+- Stateful agent behavior
+- Modular design
+- Separation of concerns
+- Test coverage
+- Dockerization
 - CI compatibility
 
 This is closer to a **real production backend** than most demos online.
@@ -272,10 +272,10 @@ This project was built to demonstrate:
 > "I understand how to design and build real agentic systems --- not
 > just run tutorials."
 
-It reflects: - Backend engineering skills\
-- Architecture design\
-- Product thinking\
-- Clean code practices\
+It reflects: - Backend engineering skills
+- Architecture design
+- Product thinking
+- Clean code practices
 - Real-world system behavior
 
 ------------------------------------------------------------------------
