@@ -20,6 +20,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      # -----------------------------
+      # Install dependencies
+      # -----------------------------
       - name: Install deps
         run: |
           python -m pip install --upgrade pip
@@ -27,39 +30,39 @@ jobs:
           pip install -r requirements-dev.txt
 
       # -----------------------------
-      # Start docker services first
+      # Start Docker services
       # -----------------------------
       - name: Build and run docker compose
         run: docker compose up -d --build
 
       # -----------------------------
-      # Wait for app to become healthy
+      # Wait for app to become ready
       # -----------------------------
-      - name: Wait for /health
+      - name: Wait for API readiness
         run: |
-          echo "Waiting for app to be healthy..."
-          for i in {1..30}; do
+          echo "Waiting for API to be ready..."
+          for i in {1..40}; do
             if curl -sf http://localhost:8000/health > /dev/null; then
-              echo "App is healthy!"
+              echo "API is healthy"
               exit 0
             fi
             sleep 2
           done
 
-          echo "App did not become healthy in time"
+          echo "API never became healthy"
           docker compose logs
           exit 1
 
       # -----------------------------
-      # Run tests (now app is alive)
+      # Run full test suite
       # -----------------------------
-      - name: Run unit + integration + e2e tests
+      - name: Run tests
         env:
           AUTH_TOKEN: super-secret-token
         run: make test
 
       # -----------------------------
-      # Smoke tests (extra safety)
+      # Explicit smoke test
       # -----------------------------
       - name: Smoke test /chat
         run: |
@@ -69,7 +72,7 @@ jobs:
             -d '{"user_id":"ci","message":"book flight from sfo to jfk tomorrow"}'
 
       # -----------------------------
-      # Always clean up
+      # Always cleanup
       # -----------------------------
       - name: Tear down
         if: always()
