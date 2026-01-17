@@ -51,3 +51,19 @@ doctor:
 	print('MEMORY_BACKEND:', settings.memory_backend); \
 	print('API_TOKEN set:', bool(settings.api_token)); \
 	print('DATABASE_URL set:', bool(settings.database_url))"
+
+pg:
+	USE_POSTGRES=true \
+	DATABASE_URL=postgresql+asyncpg://agent:agent@localhost:5432/flight_agent \
+	MEMORY_BACKEND=inmemory \
+	PYTHONPATH=. python scripts/smoke_test.py
+
+vector:
+	MEMORY_BACKEND=vector \
+	PYTHONPATH=. python scripts/smoke_test.py
+
+pgvector:
+	USE_POSTGRES=true \
+	DATABASE_URL=postgresql+asyncpg://agent:agent@localhost:5432/flight_agent \
+	MEMORY_BACKEND=vector \
+	PYTHONPATH=. python scripts/smoke_test.py
