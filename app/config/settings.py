@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     chroma_path: str = "./chroma"
 
     # Memory backend (vector | inmemory)
-    memory_backend: str = "vector"
+    memory_backend: str = "inmemory"
 
     # Database
     use_postgres: bool = False

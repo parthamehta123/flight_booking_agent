@@ -205,6 +205,21 @@ make down
 
 ------------------------------------------------------------------------
 
+## ⚙️ Configuration Modes
+
+This project supports multiple runtime modes using environment variables.
+
+| Mode | USE_POSTGRES | MEMORY_BACKEND | Use Case |
+|------|---------------|----------------|---------|
+| Local dev | false | inmemory | Fast iteration, no dependencies |
+| Tests | false | inmemory | Deterministic, isolated |
+| Docker | true | vector | Full realistic backend |
+| CI | true | vector | Production-like validation |
+
+You control behavior via `.env` or container environment variables.
+
+------------------------------------------------------------------------
+
 ## 🧪 Testing
 
 Run all tests:

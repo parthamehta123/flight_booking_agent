@@ -1,5 +1,6 @@
 [tool.pytest.ini_options]
 pythonpath = ["."]
 markers = [
-  "e2e: end-to-end tests that require running server"
+    "e2e: End-to-end tests requiring running API or server",
 ]
+asyncio_mode = "strict"

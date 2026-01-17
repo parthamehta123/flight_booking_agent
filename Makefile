@@ -6,6 +6,9 @@ run:
 test:
 	PYTHONPATH=. pytest -m "not e2e"
 
+ci:
+	PYTHONPATH=. pytest
+
 unit:
 	PYTHONPATH=. pytest tests/test_agent.py
 
@@ -39,3 +42,12 @@ lint:
 
 format:
 	@python -m ruff format . || (echo "Ruff not installed. Run: pip install -r requirements-dev.txt" && exit 1)
+
+doctor:
+	@echo "🔍 Running environment diagnostics..."
+	@python -c "from app.config.settings import settings; \
+	print('ENV:', settings.env); \
+	print('USE_POSTGRES:', settings.use_postgres); \
+	print('MEMORY_BACKEND:', settings.memory_backend); \
+	print('API_TOKEN set:', bool(settings.api_token)); \
+	print('DATABASE_URL set:', bool(settings.database_url))"
