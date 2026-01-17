@@ -18,7 +18,19 @@ class AgentGraph:
 
         if decision["action"] == "ask":
             self.sessions[user_id] = state
-            return f"Please provide {decision['slot']}."
+
+            slot = decision["slot"]
+
+            if slot == "origin":
+                return "Where are you flying from?"
+            if slot == "destination":
+                return "Where would you like to go?"
+            if slot == "date":
+                return "When would you like to travel?"
+            if slot == "passengers":
+                return "How many passengers?"
+
+            return f"Please provide {slot}."
 
         result = await executor(state)
 
@@ -28,7 +40,8 @@ class AgentGraph:
 
             await self.repo.save(booking)
             self.memory.store(
-                user_id, f"{booking.flight.origin}->{booking.flight.destination}"
+                user_id,
+                f"{booking.flight.origin}->{booking.flight.destination}",
             )
 
             return (

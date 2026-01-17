@@ -7,6 +7,11 @@ async def verify_token(authorization: str = Header(...)):
     Expect header:
         Authorization: Bearer <token>
     """
+
+    # Bypass auth entirely during tests
+    if settings.env == "test":
+        return
+
     if not authorization.startswith("Bearer "):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

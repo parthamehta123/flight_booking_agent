@@ -7,6 +7,7 @@ BASE_DIR = Path(__file__).resolve().parents[2]  # project root
 class Settings(BaseSettings):
     # App
     app_name: str = "Flight Booking Agent"
+    env: str = "dev"
 
     # LLM
     openai_api_key: str | None = None

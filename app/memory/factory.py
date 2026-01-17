@@ -4,8 +4,6 @@ from app.memory.in_memory import InMemoryMemory
 
 
 def get_memory():
-    if settings.memory_backend.lower() == "inmemory":
+    if settings.env == "test" or settings.memory_backend == "inmemory":
         return InMemoryMemory()
-
-    # default
     return VectorMemory()
