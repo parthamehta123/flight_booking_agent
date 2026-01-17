@@ -10,6 +10,7 @@ jobs:
 
     env:
       AUTH_TOKEN: super-secret-token
+      MEMORY_BACKEND: inmemory
 
     steps:
       - name: Checkout

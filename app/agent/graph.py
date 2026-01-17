@@ -2,14 +2,14 @@ from app.agent.nodes.planner import planner
 from app.agent.nodes.executor import executor
 from app.agent.nodes.verifier import verifier
 from app.db.factory import get_repository
-from app.memory.vector_store import VectorMemory
+from app.memory.factory import get_memory
 
 
 class AgentGraph:
     def __init__(self):
         self.sessions = {}
         self.repo = get_repository()
-        self.memory = VectorMemory()
+        self.memory = get_memory()
 
     async def invoke(self, user_id: str, text: str):
         state = self.sessions.get(user_id, {})

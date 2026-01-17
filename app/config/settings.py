@@ -14,6 +14,9 @@ class Settings(BaseSettings):
     # Storage
     chroma_path: str = "./chroma"
 
+    # Memory backend (vector | inmemory)
+    memory_backend: str = "vector"
+
     # Database
     use_postgres: bool = False
     database_url: str | None = None
