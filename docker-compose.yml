@@ -24,6 +24,7 @@ services:
         condition: service_healthy
     environment:
       DATABASE_URL: postgresql+asyncpg://agent:agent@db:5432/flight_agent
+      API_TOKEN: super-secret-token
     ports:
       - "8000:8000"
     command: >
