@@ -24,7 +24,7 @@ class AgentGraph:
             if slot == "origin":
                 return "Where are you flying from?"
             if slot == "destination":
-                return "Where would you like to go?"
+                return "Where are you flying to?"
             if slot == "date":
                 return "When would you like to travel?"
             if slot == "passengers":

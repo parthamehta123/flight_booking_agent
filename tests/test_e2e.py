@@ -1,3 +1,4 @@
+import pytest
 import requests
 
 """
@@ -9,6 +10,7 @@ or
 """
 
 
+@pytest.mark.e2e
 def test_real_booking():
     res = requests.post(
         "http://localhost:8000/chat",

@@ -4,7 +4,7 @@ run:
 	PYTHONPATH=. python -m uvicorn app.api.main:app --reload
 
 test:
-	PYTHONPATH=. pytest
+	PYTHONPATH=. pytest -m "not e2e"
 
 unit:
 	PYTHONPATH=. pytest tests/test_agent.py
@@ -13,7 +13,7 @@ integration:
 	PYTHONPATH=. pytest tests/test_chat_integration.py
 
 e2e:
-	PYTHONPATH=. pytest tests/test_e2e.py
+	PYTHONPATH=. pytest -m e2e
 
 smoke:
 	PYTHONPATH=. python scripts/smoke_test.py
